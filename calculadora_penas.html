@@ -683,8 +683,11 @@ function mostrarMultaResult(val){
   if(val > 0){
     document.getElementById('multa-res-val').textContent = val;
     sec.style.display = '';
+    // Realimenta o campo base para permitir operações sucessivas
+    document.getElementById('disp-multa').value = val;
   } else {
     sec.style.display = 'none';
+    document.getElementById('disp-multa').value = 0;
   }
 }
 
