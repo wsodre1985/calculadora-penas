@@ -340,6 +340,22 @@ body{
         <input type="text" inputmode="none" class="display-input" id="disp-dias" value="0" oninput="recalc()" onfocus="setFoco('dias')">
       </div>
     </div>
+    <div style="display:flex;gap:10px;margin-bottom:10px;align-items:flex-end;">
+      <div style="flex:1;">
+        <div class="disp-lbl" style="color:#d97706;">Dias-multa base</div>
+        <input type="text" inputmode="none" class="display-input" id="disp-multa" value="0"
+          style="border-color:#fde68a;background:#fffbeb;color:#92400e;font-size:1.6rem;border-radius:10px;"
+          onfocus="setFoco('multa')">
+      </div>
+      <div id="multa-result" style="display:none;flex:1.4;">
+        <div class="disp-lbl" style="color:#d97706;">Multa final</div>
+        <div style="background:#fffbeb;border:1.5px solid #fde68a;border-radius:10px;height:56px;
+          display:flex;align-items:center;justify-content:center;gap:5px;">
+          <span id="multa-res-val" style="font-family:'JetBrains Mono',monospace;font-size:1.5rem;font-weight:700;color:#92400e;">0</span>
+          <span style="font-size:.65rem;color:#d97706;font-weight:700;">dias-multa</span>
+        </div>
+      </div>
+    </div>
     <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:8px;">
       <button class="obtn op-plus" onclick="opAcum('+')">+</button>
       <button class="obtn op-min"  onclick="opAcum('−')">−</button>
@@ -489,8 +505,10 @@ function setPena(a,m,d){ setDisp('anos',a); setDisp('meses',m); setDisp('dias',d
 function setFoco(campo){
   foco = campo;
   ['anos','meses','dias'].forEach(c => {
-    document.getElementById('disp-'+c).style.borderColor = (c===campo)?'#4fc3f7':'#444';
+    document.getElementById('disp-'+c).style.borderColor = (c===campo) ? 'var(--accent)' : '';
   });
+  const m = document.getElementById('disp-multa');
+  m.style.borderColor = (campo==='multa') ? '#d97706' : '#fde68a';
 }
 
 // teclado na tela — digita concatenando no campo com foco
@@ -575,16 +593,18 @@ let customCount = 0;
 
 function clicarBtn(id, item, btn) {
   if(opPending !== null){
-    const p = getPena();
-    const fracDias = Math.floor(opBase * item.pct);
-    const sinal    = (opPending==='+') ? 1 : -1;
-    acumDias      += sinal * fracDias;
-    const amd      = toAMD(fracDias);
+    const fracDias  = Math.floor(opBase * item.pct);
+    const fracMulta = Math.round(multaOpBase * item.pct);
+    const sinal     = (opPending==='+') ? 1 : -1;
+    acumDias       += sinal * fracDias;
+    multaAcum      += sinal * fracMulta;
+    const amd       = toAMD(fracDias);
     acumLog.push(opPending+' '+item.label+' ('+fmt(amd.a,amd.m,amd.d)+')');
-    opPending = null; opBase = 0;
+    opPending = null; opBase = 0; multaOpBase = 0;
     atualizarAcumBar(null);
     const res = toAMD(Math.abs(acumDias));
     setPena(res.a, res.m, res.d);
+    mostrarMultaResult(Math.max(0, Math.round(multaAcum)));
     recalc();
     return;
   }
@@ -600,42 +620,53 @@ function clicarBtn(id, item, btn) {
 
 // ── Acumulador ───────────────────────────────────────────────────────────────
 let acumDias=0, acumLog=[], opPending=null, opBase=0;
+let multaAcum=0, multaOpBase=0;
+
+function getMulta(){ return parseInt(document.getElementById('disp-multa').value)||0; }
 
 function opAcum(op){
   const p = getPena();
   const dias = toDias(p.anos, p.meses, p.dias);
   if(!dias){ alert('Informe a pena.'); return; }
 
+  const multa = getMulta();
+
   if(acumLog.length===0){
     acumDias = dias;
+    multaAcum = multa;
     acumLog.push(fmt(p.anos, p.meses, p.dias));
   } else if(opPending!==null){
-    acumDias += ((opPending==='+')?1:-1) * dias;
+    acumDias  += ((opPending==='+')?1:-1) * dias;
+    multaAcum += ((opPending==='+')?1:-1) * multa;
     acumLog.push(opPending+' '+fmt(p.anos, p.meses, p.dias));
   }
 
-  opPending = op; opBase = dias;
+  opPending = op; opBase = dias; multaOpBase = multa;
   setPena(0,0,0);
+  document.getElementById('disp-multa').value = 0;
   atualizarAcumBar('← clique numa fração ou digite e pressione =');
 }
 
 function opIgual(){
   const p = getPena();
   const dias = toDias(p.anos, p.meses, p.dias);
+  const multa = getMulta();
 
   if(opPending!==null){
     if(!dias){ alert('Digite um valor ou clique em uma fração.'); return; }
-    acumDias += ((opPending==='+')?1:-1) * dias;
+    acumDias  += ((opPending==='+')?1:-1) * dias;
+    multaAcum += ((opPending==='+')?1:-1) * multa;
     acumLog.push(opPending+' '+fmt(p.anos, p.meses, p.dias));
-    opPending=null; opBase=0;
+    opPending=null; opBase=0; multaOpBase=0;
   } else {
     if(!dias && acumLog.length===0){ alert('Informe uma pena.'); return; }
-    if(dias){ acumDias+=dias; acumLog.push(fmt(p.anos,p.meses,p.dias)); }
+    if(dias){ acumDias+=dias; multaAcum+=multa; acumLog.push(fmt(p.anos,p.meses,p.dias)); }
   }
 
   if(acumDias<=0){ alert('Resultado zerado ou negativo.'); resetAcum(); return; }
   const res = toAMD(acumDias);
   setPena(res.a, res.m, res.d);
+  mostrarMultaResult(Math.max(0, Math.round(multaAcum)));
   resetAcum();
   recalc();
 }
@@ -647,14 +678,27 @@ function atualizarAcumBar(hint){
   document.getElementById('acum-ops').textContent = acumLog.join(' ')+(hint?' '+hint:'');
 }
 
+function mostrarMultaResult(val){
+  const sec = document.getElementById('multa-result');
+  if(val > 0){
+    document.getElementById('multa-res-val').textContent = val;
+    sec.style.display = '';
+  } else {
+    sec.style.display = 'none';
+  }
+}
+
 function resetAcum(){
   acumDias=0; acumLog=[]; opPending=null; opBase=0;
+  multaAcum=0; multaOpBase=0;
   document.getElementById('acum-bar').style.display='none';
 }
 
 function clearAll(){
   setPena(0,0,0);
   resetAcum();
+  document.getElementById('disp-multa').value=0;
+  document.getElementById('multa-result').style.display='none';
   ['ia','im','id','remidos'].forEach(id=>document.getElementById(id).value=0);
   document.getElementById('inicio').value='';
   document.getElementById('redacao-txt').textContent='—';
