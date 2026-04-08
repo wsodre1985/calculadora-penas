@@ -738,8 +738,13 @@ function recalc(){
     temData ? fmtD(addD(inicio, efetTotal)) : fmt(ef.a,ef.m,ef.d);
 
   // Redação
+  const multa = parseInt(document.getElementById('multa-res-val').textContent) || getMulta();
+  const multaStr = multa > 0
+    ? ' e ' + String(multa).padStart(2,'0') + ' (' + porExtenso(multa) + ') ' + (multa===1?'dia-multa':'dias-multa')
+    : '';
+  const penaStr = fmtRedacao(ef.a, ef.m, ef.d);
   document.getElementById('redacao-txt').textContent =
-    fmtRedacao(ef.a, ef.m, ef.d) || '—';
+    penaStr ? (penaStr + ' de reclusão' + multaStr) : '—';
 
   // Grade
   function buildCell(item, cor){
