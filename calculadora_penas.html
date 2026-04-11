@@ -35,43 +35,64 @@ body{
 
 /* ── Wrapper ── */
 .calc{
-  width:100%; max-width:440px;
+  width:100%; max-width:960px;
   background:var(--surface);
   border:1px solid var(--border);
-  border-radius:14px;
-  box-shadow:0 4px 24px rgba(0,0,0,.08);
+  border-radius:16px;
+  box-shadow:0 6px 32px rgba(0,0,0,.10);
   overflow:hidden;
+}
+
+/* ── Layout 2 colunas ── */
+.calc-body{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+}
+.calc-col{
+  display:flex; flex-direction:column;
+}
+.calc-col:first-child{
+  border-right:1px solid var(--border2);
+}
+.calc-col .section:last-child{
+  border-bottom:none;
+  flex:1;
+}
+@media(max-width:640px){
+  .calc-body{ grid-template-columns:1fr; }
+  .calc-col:first-child{ border-right:none; }
 }
 
 /* ── Header ── */
 .calc-header{
-  padding:12px 18px 11px;
-  border-bottom:1px solid var(--border2);
-  display:flex; align-items:center; gap:9px;
+  padding:16px 22px 15px;
+  border-bottom:2px solid var(--border2);
+  display:flex; align-items:center; gap:12px;
   background:var(--surface);
+  border-left:4px solid var(--accent);
 }
 .calc-header-dot{
-  width:8px; height:8px; border-radius:50%; background:var(--accent);
+  display:none;
 }
 .calc-header-title{
-  font-size:.68rem; font-weight:700; color:var(--muted);
-  text-transform:uppercase; letter-spacing:2px;
+  font-size:.85rem; font-weight:700; color:var(--text);
+  text-transform:uppercase; letter-spacing:2.5px;
 }
 
 /* ── Seção interna ── */
-.section{ padding:14px 16px; border-bottom:1px solid var(--border2); }
+.section{ padding:16px 18px; border-bottom:1px solid var(--border2); }
 .section:last-child{ border-bottom:none; }
 .section-lbl{
-  font-size:.58rem; font-weight:700; color:var(--muted);
-  text-transform:uppercase; letter-spacing:1.8px; margin-bottom:9px;
+  font-size:.72rem; font-weight:700; color:var(--muted);
+  text-transform:uppercase; letter-spacing:1.8px; margin-bottom:11px;
 }
 
 /* ── Displays ── */
 .disp-col{ flex:1; position:relative; }
 .disp-lbl{
-  font-size:.58rem; font-weight:700; color:var(--muted);
+  font-size:.72rem; font-weight:700; color:var(--muted);
   text-transform:uppercase; letter-spacing:1.5px;
-  margin-bottom:5px;
+  margin-bottom:6px;
 }
 .display-input{
   width:100%; background:#f8fafc; border:1.5px solid var(--border);
@@ -90,8 +111,8 @@ body{
 
 /* ── Operadores ── */
 .obtn{
-  height:40px; border:none; border-radius:9px;
-  font-size:1rem; font-weight:700; cursor:pointer;
+  height:48px; border:none; border-radius:10px;
+  font-size:1.1rem; font-weight:700; cursor:pointer;
   transition:filter .1s, transform .08s;
   font-family:'Inter',sans-serif;
 }
@@ -118,8 +139,8 @@ body{
   display:grid; grid-template-columns:repeat(3,1fr); gap:6px;
 }
 .kbtn{
-  height:40px; background:var(--surface2); border:1.5px solid var(--border2);
-  border-radius:8px; color:var(--text); font-size:1rem; font-weight:600;
+  height:52px; background:var(--surface2); border:1.5px solid var(--border2);
+  border-radius:10px; color:var(--text); font-size:1.15rem; font-weight:600;
   cursor:pointer; transition:background .1s, border-color .1s, transform .08s;
   font-family:'Inter',sans-serif;
 }
@@ -127,17 +148,18 @@ body{
 .kbtn:active{ transform:scale(.93); background:#dde3ea; }
 
 /* ── Botões de fração/% ── */
-.btn-row{ display:flex; gap:6px; flex-wrap:wrap; }
+.btn-row{ display:grid; grid-template-columns:repeat(4,1fr); gap:6px; }
 .fbtn{
-  padding:5px 12px;
+  padding:7px 6px;
   border:2px solid var(--border);
-  border-radius:20px;
+  border-radius:10px;
   background:var(--surface2);
   color:var(--muted);
   font-size:.73rem; font-weight:700;
   cursor:pointer; transition:all .12s; white-space:nowrap;
   font-family:'Inter',sans-serif; letter-spacing:.2px;
   box-shadow:0 1px 3px rgba(0,0,0,.06);
+  text-align:center;
 }
 .fbtn:hover{
   border-color:var(--accent); color:var(--accent);
@@ -166,9 +188,9 @@ body{
   background:#f0f7ff; border:1.5px solid #bfdbfe;
   border-radius:8px; padding:8px 13px; margin-bottom:10px;
 }
-.termino-lbl{ font-size:.65rem; color:var(--muted); font-weight:600; }
+.termino-lbl{ font-size:.78rem; color:var(--muted); font-weight:600; }
 .termino-val{
-  font-family:'JetBrains Mono',monospace; font-size:.9rem;
+  font-family:'JetBrains Mono',monospace; font-size:1rem;
   font-weight:700; color:var(--accent); letter-spacing:.5px;
 }
 
@@ -217,7 +239,7 @@ body{
 .fields-row:last-child{ margin-bottom:0; }
 .fg{ flex:1; min-width:64px; }
 .fg label{
-  display:block; font-size:.58rem; font-weight:700;
+  display:block; font-size:.72rem; font-weight:700;
   color:var(--muted); margin-bottom:4px; letter-spacing:.3px;
   text-transform:uppercase;
 }
@@ -232,7 +254,7 @@ body{
 .int-group{ display:flex; gap:5px; }
 .int-group .fg{ min-width:44px; }
 .int-lbl{
-  font-size:.58rem; font-weight:700; color:var(--muted);
+  font-size:.72rem; font-weight:700; color:var(--muted);
   margin-bottom:5px; letter-spacing:.3px; display:block;
   text-transform:uppercase;
 }
@@ -258,12 +280,12 @@ body{
   border-radius:8px; padding:10px 13px;
 }
 .redacao-txt{
-  font-size:.85rem; color:var(--text); line-height:1.7;
+  font-size:.95rem; color:var(--text); line-height:1.75;
   cursor:pointer; user-select:all; letter-spacing:.1px;
   font-weight:500;
 }
 .redacao-txt:hover{ color:var(--accent); }
-.copy-hint{ font-size:.58rem; color:var(--muted); margin-top:5px; }
+.copy-hint{ font-size:.68rem; color:var(--muted); margin-top:6px; }
 
 /* ── Botão calcular período ── */
 .btn-calc-per{
@@ -310,6 +332,20 @@ body{
 }
 .bok{ background:var(--accent); color:#fff; }
 .bcan{ background:var(--surface2); color:var(--muted); border:1.5px solid var(--border); }
+
+/* ── Seções que o JS oculta: mantém espaço fixo reservado ── */
+#results-section{
+  min-height:335px;
+}
+#redacao-section{
+  min-height:375px;
+}
+#results-section[style*="display:none"],
+#redacao-section[style*="display:none"]{
+  display:block !important;
+  visibility:hidden;
+  pointer-events:none;
+}
 </style>
 </head>
 <body>
@@ -322,6 +358,9 @@ body{
     <span class="calc-header-title" style="flex:1;">Calculadora de Penas</span>
     <span style="font-size:.65rem;font-weight:700;color:var(--muted);letter-spacing:1px;">LEP 2026</span>
   </div>
+
+  <div class="calc-body">
+  <div class="calc-col">
 
   <!-- DISPLAYS + OPERADORES -->
   <div class="section" style="padding-bottom:12px;">
@@ -372,6 +411,18 @@ body{
     <div id="keypad"></div>
   </div>
 
+  <!-- REDAÇÃO -->
+  <div class="section" id="redacao-section" style="display:none;">
+    <div class="section-lbl">Redação para a peça</div>
+    <div class="redacao-wrap">
+      <div class="redacao-txt" id="redacao-txt" onclick="copiarRedacao(this)">—</div>
+      <div class="copy-hint">Clique para copiar</div>
+    </div>
+  </div>
+
+  </div><!-- /calc-col esquerda -->
+  <div class="calc-col">
+
   <!-- FRAÇÕES / PERCENTUAIS -->
   <div class="section">
     <div class="section-lbl">Progressão — Frações e Percentuais</div>
@@ -388,15 +439,6 @@ body{
     <div class="remopt-row">
       <label><input type="radio" name="remopt" value="antes" checked onchange="recalc()"> Retirar remidos antes de calcular a fração</label>
       <label><input type="radio" name="remopt" value="depois" onchange="recalc()"> Retirar remidos após calcular a fração</label>
-    </div>
-  </div>
-
-  <!-- REDAÇÃO -->
-  <div class="section" id="redacao-section" style="display:none;">
-    <div class="section-lbl">Redação para a peça</div>
-    <div class="redacao-wrap">
-      <div class="redacao-txt" id="redacao-txt" onclick="copiarRedacao(this)">—</div>
-      <div class="copy-hint">Clique para copiar</div>
     </div>
   </div>
 
@@ -428,6 +470,9 @@ body{
       <div class="fg"><label>Dias</label><input type="number" id="id" min="0" value="0" oninput="recalc()"></div>
     </div>
   </div>
+
+  </div><!-- /calc-col direita -->
+  </div><!-- /calc-body -->
 
 </div><!-- /calc -->
 
@@ -474,7 +519,34 @@ const NUMS = ['zero','um','dois','três','quatro','cinco','seis','sete','oito','
   'onze','doze','treze','quatorze','quinze','dezesseis','dezessete','dezoito','dezenove','vinte',
   'vinte e um','vinte e dois','vinte e três','vinte e quatro','vinte e cinco','vinte e seis',
   'vinte e sete','vinte e oito','vinte e nove','trinta'];
-function porExtenso(n){ return n<=30 ? NUMS[n] : n+''; }
+const DEZENAS = ['','','vinte','trinta','quarenta','cinquenta','sessenta','setenta','oitenta','noventa'];
+const CENTENAS = ['','cem','duzentos','trezentos','quatrocentos','quinhentos','seiscentos','setecentos','oitocentos','novecentos'];
+function porExtenso(n){
+  n = Math.floor(n);
+  if(n <= 30) return NUMS[n];
+  if(n < 100){
+    const d = Math.floor(n/10), u = n%10;
+    return u===0 ? DEZENAS[d] : DEZENAS[d]+' e '+NUMS[u];
+  }
+  if(n === 100) return 'cem';
+  if(n < 200){
+    const r = n - 100;
+    return r===0 ? 'cem' : 'cento e '+porExtenso(r);
+  }
+  if(n < 1000){
+    const c = Math.floor(n/100), r = n%100;
+    return r===0 ? CENTENAS[c] : CENTENAS[c]+' e '+porExtenso(r);
+  }
+  if(n < 2000){
+    const r = n - 1000;
+    return r===0 ? 'mil' : 'mil e '+porExtenso(r);
+  }
+  if(n < 1000000){
+    const m = Math.floor(n/1000), r = n%1000;
+    return r===0 ? porExtenso(m)+' mil' : porExtenso(m)+' mil e '+porExtenso(r);
+  }
+  return n+'';
+}
 function fmtRedacao(a,m,d){
   const p=[];
   if(a) p.push(String(a).padStart(2,'0')+' ('+porExtenso(a)+') '+(a===1?'ano':'anos'));
