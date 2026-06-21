@@ -1,0 +1,42 @@
+{
+  "name": "calculadora-penas",
+  "version": "1.0.0",
+  "description": "Calculadora de Penas LEP 2026",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron .",
+    "dist": "electron-builder --win"
+  },
+  "keywords": [
+    "calculadora",
+    "penas",
+    "lep"
+  ],
+  "author": "Antigravity",
+  "license": "ISC",
+  "devDependencies": {
+    "@electron/packager": "^20.0.1",
+    "electron": "^31.0.0",
+    "electron-builder": "^24.13.3"
+  },
+  "build": {
+    "appId": "com.calculadora.penas.lep",
+    "productName": "Calculadora de Penas LEP",
+    "directories": {
+      "output": "dist"
+    },
+    "files": [
+      "main.js",
+      "index.html",
+      "app.js",
+      "style.css",
+      "package.json"
+    ],
+    "win": {
+      "target": "portable"
+    },
+    "portable": {
+      "artifactName": "CalculadoraDePenasLEP.exe"
+    }
+  }
+}

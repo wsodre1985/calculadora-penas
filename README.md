@@ -1,191 +1,109 @@
-📋 Calculadora de Penas v2026
-Calculadora web moderna para cálculo de penas penais com suporte a frações, dias-multa, remição e geração automática de redação para peças processuais.
-🎯 Funcionalidades
+# 📋 Calculadora de Penas V2.1 (LEP)
 
-✅ Cálculo de Pena Base — Anos, meses e dias
-✅ Dias-Multa Integrado — Cálculo automático com a pena
-✅ Frações e Progressões — 1/6, 1/5, 1/4, 1/3, 1/2, 2/3 e customizáveis
-✅ Critérios Vedados — Identifica progressões com restrição a livramento condicional
-✅ Remição — Cálculo com opção de antes/depois da fração
-✅ Interrupção — Anos, meses e dias de interrupção
-✅ Período entre Datas — Calcula dias, meses e anos entre datas
-✅ Início e Término — Define data de início e calcula automaticamente o término
-✅ Redação Automática — Gera texto formatado para peças (01 ano, 11 meses e 10 dias...)
-✅ Grade de Resultados — Mostra todas as frações com datas
-✅ Cálculo com Datas — Indica se fração foi atingida, é hoje ou está pendente
-✅ UI Responsiva — Funciona em desktop, tablet e celular
-✅ Design Moderno — Interface limpa com cores intuitivas
+Calculadora web moderna para cálculo de penas com suporte a frações, dias-multa, remição, dosimetria (Pena-Base), múltiplos períodos de prisão e geração automática de redação para peças processuais. 
 
-📋 Funcionalidades Detalhadas
-Pena Base
-Entrada de pena inicial em anos, meses e dias. Sistema permite operações de soma (adição de agravantes) e subtração (atenuantes).
-Dias-Multa
-Campo separado para entrada de dias-multa base. O sistema calcula automaticamente a multa final proporcionalmente às operações realizadas.
-Progressões e Frações
+## 🎯 Novidades da Versão 2.1
+- **Design Moderno e Abas**: Nova interface com menu lateral (Painel LEP) para navegação ágil.
+- **Aba Pena-Base (1ª Fase)**: Cálculo automático de 1/8 do intervalo entre pena mínima e máxima (Art. 59 do CP) e multiplicação por circunstâncias desfavoráveis.
+- **Múltiplos Períodos de Prisão**: Agora é possível adicionar vários períodos (Data Inicial → Data Final) e somar todo o tempo de cárcere acumulado.
+- **Modo Escuro / Claro**: Suporte nativo a *Dark Mode* para maior conforto visual.
+- **Teclado Virtual e Acumulador**: Teclado embutido na interface e funções avançadas de acúmulo (+, −, AC, =) diretamente na aba principal.
+- **Separação de Código**: Organização aprimorada em arquivos separados (`index.html`, `style.css`, `app.js`).
 
-Frações Clássicas: 1/6, 1/5, 1/4, 1/3, 1/2, 2/3
-Percentuais Legais: 16%, 20%, 25%, 30%, 33%, 40%, 50%, 55%, 60%, 67%, 70%, 75%, 80%, 85%
-Customizáveis: Botão ⚙ permite adicionar qualquer fração ou percentual
-Vedados: Alguns critérios são marcados com ⛔ (vedado livramento condicional)
+## 📋 Funcionalidades Detalhadas
 
-Remição
-Entrada de dias remidos com opção de:
+### 🧮 Calculadora de Execução (Principal)
+- **Inserção de Penas & Teclado**: Teclado rápido para Anos, Meses e Dias.
+- **Acumulador (AC)**: Some e subtraia penas de múltiplos processos facilmente antes de aplicar as frações.
+- **Frações Legais**: 1/6, 1/5, 1/4, 1/3, 1/2, 2/3 (com suas respectivas porcentagens da LEP).
+- **Frações Customizáveis**: Botão **+** permite adicionar botões fixos de fração/percentual.
+- **Dias-Multa Base**: Cálculo proporcional em cima das frações.
 
-Antes: Retira remidos antes de calcular a fração
-Depois: Retira remidos depois de calcular a fração
+### ⚖️ Pena-Base (1ª Fase)
+- **Parâmetros do Delito**: Inserção de pena mínima, máxima e dias-multa.
+- **Circunstâncias Judiciais (Art. 59)**: Escolha de 0 a 8 circunstâncias desfavoráveis.
+- **Cálculo Automático**: Descobre o intervalo, divide por 8 e multiplica pelas circunstâncias.
+- **Integração**: Envia o resultado com 1 clique direto para a Calculadora Principal.
 
-Interrupção
-Campos para anos, meses e dias de interrupção da pena. Afeta o cálculo de efetividade.
-Período entre Datas
+### 📅 Períodos e Execução
+- **Soma de Períodos de Prisão**: Crie listas dinâmicas de intervalos (preso → solto).
+- **Data de Início da Prisão**: Define o marco zero da execução.
+- **Dias Remidos**: Deduz dias trabalhados ou estudados (antes ou depois da fração aplicada).
+- **Interrupção**: Campos diretos para deduzir Anos, Meses e Dias.
 
-Calcula dias, meses e anos entre duas datas
-Botões para copiar resultado para pena base ou interrupção
-Distinção entre dias corridos e dias no sistema penal
+### 📝 Resultados e Redação
+- **Resultados de Término & Progressão**:
+  - Término Previsto (Data exata e Tempo Restante).
+  - Data de Atingimento da Fração Escolhida (Atingido ✔, HOJE, ou Pendente).
+- **Redação por Extenso Automática**:
+  - Ex: *01 (um) ano, 11 (onze) meses e 10 (dez) dias de reclusão e 15 (quinze) dias-multa*.
+  - Basta um clique para copiar e colar diretamente nas peças processuais.
 
-Grade de Resultados
-Exibe todas as 6 frações clássicas com:
+---
 
-Tempo em formato AMD (anos, meses, dias)
-Data de atingimento (se data inicial informada)
-Status (Atingido ✔, HOJE, Pendente)
-Identificação de critérios vedados ⛔
+## 🚀 Como Usar
 
-Redação Automática
-Gera texto formatado para inserção em peças processuais:
-01 (um) ano, 11 (onze) meses e 10 (dez) dias de reclusão e 15 (quinze) dias-multa
-🚀 Como Usar
-Acesso
+### Acesso
+- Abra o arquivo `index.html` em qualquer navegador moderno.
+- O sistema é **offline-first** (não requer conexão com a internet) e todo cálculo ocorre na sua máquina.
 
-Abra calculadora_penas.html em qualquer navegador moderno
-Não requer instalação ou conexão com internet (offline-first)
-Todos os cálculos ocorrem no navegador local
+### Operações Básicas
+1. Selecione a aba desejada no **Painel LEP** à esquerda.
+2. Na **Calculadora**, digite a pena pelo teclado na tela.
+3. Clique em **+** ou **−** para ir acumulando condenações.
+4. Escolha uma **Fração** da barra lateral para aplicar a progressão de regime.
+5. Em **Períodos**, some o tempo que o réu já passou preso e exporte para os parâmetros de execução.
 
-Entrada de Pena Base
+### Personalização
+- **Tema Escuro**: Clique em "Tema Claro/Escuro" no rodapé da barra lateral.
+- **Frações Novas**: Clique no botão **+** na seção de frações e insira o percentual específico.
 
-Clique no campo de Anos, Meses ou Dias
-Use o teclado virtual ou digite diretamente
-Navegue entre campos clicando neles
+---
 
-Operações de Acumulação
+## 🖥️ Compatibilidade
+- **Navegadores**: Chrome, Firefox, Safari, Edge (versões recentes).
+- **Dispositivos**: Desktop, Notebook, Tablet. (Layout responsivo com grades inteligentes).
+- **Sistemas**: Windows, macOS, Linux.
 
-Digite pena → Clique + (soma) ou − (subtração)
-Digite próxima pena ou clique em uma fração
-Clique = para confirmar
-Resultado aparece automaticamente
+## 📐 Convenção Penal
+O sistema utiliza os critérios pacificamente consolidados pelos Tribunais Superiores:
+- **1 ano = 360 dias**
+- **1 mês = 30 dias**
 
-Usar Frações
+Isso garante cálculos exatos entre conversões (Anos/Meses/Dias ↔ Dias Totais).
 
-Digite pena base
-Clique em + ou −
-Clique diretamente em uma fração (1/6, 1/5, etc)
-Resultado recalcula automaticamente
+---
 
-Adicionar Fração Customizada
+## 🔧 Estrutura Técnica
 
-Clique em ⚙ (engrenagem)
-Informe percentual (ex: 33,33) OU fração (ex: 1/3)
-Opcionalmente defina rótulo
-Clique OK
-Novo botão aparecerá na grade
+### Stack
+- **Frontend**: HTML5, CSS3 Moderno (CSS Variables, Flexbox, CSS Grid), Vanilla JavaScript.
+- **Zero Dependências**: Sem React, Vue ou bibliotecas externas. Totalmente nativo.
+- **Responsividade**: Media queries adaptam a exibição (escondendo a barra lateral em telas minúsculas e rearranjando os cartões de grid).
 
-Calcular Período entre Datas
+### Organização dos Arquivos
+```text
+Calculadora/
+├── index.html   (Estrutura e layout, UI semântica, ícones SVG inline)
+├── style.css    (Design System, tipografia, esquema de cores Claro/Escuro)
+└── app.js       (Lógica da calculadora, manipulação de datas e DOM)
+```
 
-Informe "Data inicial" e "Data final"
-Clique Calcular
-Resultado mostra dias, meses, anos
-Clique para copiar para pena ou interrupção
+## 🎨 Design
+A interface utiliza tons sofisticados baseados no tema *Slate/Navy*:
+- **Azul (Brand/Accent)**: Ações primárias e destaques (`#2563eb` a `#1d4ed8`).
+- **Verde/Vermelho**: Feedback visual em botões de operações matemáticas.
+- **Ambar/Laranja**: Atenção em circunstâncias desfavoráveis e multas.
+- **Superfícies (Dark Mode)**: Baseada em tons noturnos profundos (`#0f172a`, `#1e293b`).
 
-Usar Remição
+## 📝 Notas Jurídicas
+- O sistema obedece estritamente às diretrizes de contagem da **Lei de Execução Penal (LEP)** e ao Código Penal Brasileiro.
+- O cálculo da pena base considera as circunstâncias inominadas e estabelece o peso usual de **1/8 do intervalo sancionatório**.
 
-Informe "Remidos (dias)"
-Escolha opção (antes/depois)
-Resultados recalculam automaticamente
+---
 
-Usar Interrupção
-
-Informe anos, meses, dias de interrupção
-Resultados ajustam automaticamente
-
-Gerar Redação
-
-Configure pena, dias-multa e datas
-Redação aparece automaticamente
-Clique para copiar para clipboard
-Cole na peça processual
-
-🖥️ Compatibilidade
-
-Navegadores: Chrome, Firefox, Safari, Edge (versões recentes)
-Dispositivos: Desktop, Tablet, Celular
-Sistemas: Windows, macOS, Linux, iOS, Android
-Offline: Funciona completamente offline (sem internet)
-
-📐 Convenção Penal
-O sistema usa a convenção padrão brasileira:
-
-1 ano = 360 dias
-1 mês = 30 dias
-
-Isso é relevante para conversões entre formatos.
-🔧 Estrutura Técnica
-Stack
-
-Frontend: HTML5 + CSS3 + Vanilla JavaScript
-Dependências: Nenhuma (zero dependências externas)
-Tamanho: Arquivo único (~35 KB)
-Performance: Cálculos instantâneos
-
-Características de Código
-
-Sem frameworks (puro JavaScript)
-Sem bibliotecas externas
-Fonts importados do Google Fonts (carregamento opcional)
-Interface reativa (atualiza em tempo real)
-Código bem comentado e estruturado
-
-🎨 Design
-Paleta de Cores
-
-Azul (Accent): #1a56db — Ações principais
-Verde: #166534 — Soma, aprovação
-Vermelho: #991b1b — Subtração, atenção
-Laranja: #92400e — Dias-multa, destacado
-Cinzento: Fundo, texto muted
-
-Responsividade
-
-Breakpoint principal: 640px
-Layout 2 colunas (desktop) → 1 coluna (mobile)
-Touch-friendly (botões de 48-52px)
-Sem scroll horizontal desnecessário
-
-📝 Notas Jurídicas
-
-Sistema segue Lei de Execução Penal (LEP)
-Cálculos baseados em jurisprudência consolidada
-Vedações conforme entendimento STJ/STF
-Redação em português jurídico formal
-
-⚙️ Desenvolvimento
-Estrutura do Arquivo
-calculadora_penas.html
-├── <style>     (CSS inline ~350 linhas)
-├── <body>      (HTML estrutura)
-└── <script>    (JavaScript lógica ~430 linhas)
-Principais Funções
-
-toDias() / toAMD() — Conversão entre formatos
-recalc() — Recalcula todos os resultados
-opAcum() / opIgual() — Operações de acumulação
-calcPeriodo() — Período entre datas
-copiarRedacao() — Cópia para clipboard
-fmtRedacao() — Formatação de texto
-
-📄 Licença
+📄 **Licença**  
 MIT License - Livre para usar, modificar e distribuir.
-👤 Autor
-Calculadora de Penas - Desenvolvida para juízes e profissionais de Direito Penal.
 
-Versão: 2026
-Última atualização: Abril 2026
-Status: Estável
+👤 **Autor**  
+**Wesley Sodré** - Calculadora de Penas V2.1. Desenvolvida e refinada como ferramenta de apoio à atividade jurídica e de execução penal.
